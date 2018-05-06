@@ -11,8 +11,6 @@ pids
 logs
 results
 tmp
-src/public/pagefly/*
-public/pagefly/*
 # Optional npm cache directory
 .npm
 

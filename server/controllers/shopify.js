@@ -1,15 +1,13 @@
 const shopifyConfig = require('../config/shopify')
 const ShopifyAPIClient = require('shopify-api-node')
-const PageModel = require('../models/Page')
-const { NODE_ENV, PAGEFLY_VERSION, BASE_URL, SHOPIFY_APP_PROXY } = process.env
+const { NODE_ENV, BASE_URL, SHOPIFY_APP_PROXY } = process.env
 
 /**
  * GET
  */
 exports.shopify = async (req, res) => {
 	const {
-		session: { shop, shopData },
-		query: { view }
+		session: { shop, shopData }
 	} = req
 
 	res.render('shopify/index', {

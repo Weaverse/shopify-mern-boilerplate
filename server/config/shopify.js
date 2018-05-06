@@ -6,14 +6,13 @@ const {
 	SHOPIFY_APP_KEY,
 	BASE_URL,
 	SHOPIFY_APP_SECRET,
-	PAGEFLY_VERSION,
 	SHOPIFY_APP_SCOPE
 } = process.env
 
 class ShopifyMongoStrategy {
 	constructor() {
 		this.scriptTagUrl =
-			BASE_URL + '/pagefly/assets/' + PAGEFLY_VERSION + '/helper.js'
+			BASE_URL + '/assets/script-tag.js'
 	}
 
 	getScriptTagsRequestUrl(shop) {

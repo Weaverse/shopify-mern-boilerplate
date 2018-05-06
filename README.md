@@ -1,4 +1,4 @@
-PageFly Backend Core - Developer Guide
+Shopify MERN App - Developer Guide
 =======================
 
 
