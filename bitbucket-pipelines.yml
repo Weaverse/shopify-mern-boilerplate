@@ -1,0 +1,15 @@
+image: node:9
+pipelines:
+  default:
+      - step:
+          services:
+              - mongo
+          caches:
+              - node
+          script:
+              - yarn install
+              - yarn run lint
+definitions:
+  services:
+    mongo:
+      image: mongo

@@ -1,0 +1,45 @@
+{
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "extends": [
+    "prettier",
+    "react"
+  ],
+  "plugins": [
+    "prettier",
+    "react"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      1,
+      {
+        "singleQuote": true,
+        "semi": false,
+        "tabWidth": 4,
+        "useTabs": true
+      }
+    ],
+    "camelcase": 0,
+    "no-unused-expressions": 1,
+    "one-var": [
+      1,
+      {
+        "initialized": "never"
+      }
+    ],
+    "no-unused-vars": 1,
+    "semi": 0,
+    "indent": 0,
+    "operator-linebreak": 0,
+    "react/sort-comp": 0,
+    "new-cap": 0
+  }
+}
