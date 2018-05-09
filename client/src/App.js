@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { AppProvider, Page, Card, Button } from '@shopify/polaris'
+import '@shopify/polaris/styles.css'
 
 const { apiKey, shopOrigin } = window.appData
 
