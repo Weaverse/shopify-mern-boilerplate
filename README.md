@@ -20,6 +20,22 @@ screencast by Alex Ford that teaches Node and Express from scratch. Alternativel
 here is another great tutorial for complete beginners - [Getting Started With Node.js, Express, MongoDB](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/).
 
 
+Features
+---------------
+* [Shopify Polaris](https://github.com/Shopify/polaris) newest version.
+* [Shopify Express](https://github.com/Shopify/shopify-express)
+    * Authenticate with Shopify
+    * Usage of Shopify API
+    * Shopify Webhook
+* React ^16.3
+* Hot Reload React app
+
+
+
+Todos
+---------------
+* Add GraphQL
+
 Getting Started
 ---------------
 
