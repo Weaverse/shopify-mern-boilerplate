@@ -102,77 +102,77 @@ class ShopifyMongoStrategy {
 		return new Promise(async resolve => {
 			const result = await this.updateShopMetadata(shopify, shop)
 			resolve(result)
-			// if (result.success) {
-			// 	(async () => {
-			// 		const scriptTags =
-			// 			(await this.getScriptTagsFromAPI(shopify, shop))
-			// 				.script_tags || []
-			// 		const scriptTags2 =
-			// 			(await this.getScriptTagsFromDB(shop)).script_tags || []
-      //
-			// 		const installedScriptTag = scriptTags.filter(
-			// 			script => script.src === this.scriptTagUrl
-			// 		)[0]
-			// 		console.log(
-			// 			shop,
-			// 			'already installed script tags',
-			// 			installedScriptTag
-			// 		)
-			// 		if (!installedScriptTag) {
-			// 			//Remove old script tags
-			// 			await this.removeOldScriptTags(shopify, shop, [
-			// 				...scriptTags,
-			// 				...scriptTags2
-			// 			])
-			// 			// append new script tag
-			// 			this.addAppScriptTag(shopify, shop)
-			// 		} else {
-			// 			// Update script tag info
-			// 			this.updateScriptTagsToDB(shop, scriptTags)
-			// 		}
-			// 		// put template layout for preview
-			// 		const themes = await shopify
-			// 			.request(
-			// 				url.parse(
-			// 					'https://' +
-			// 						shop +
-			// 						'/admin/themes.json?role=main'
-			// 				)
-			// 			)
-			// 			.catch(console.log)
-			// 		const activeTheme =
-			// 			themes && themes.themes && themes.themes[0]
-			// 		if (activeTheme) {
-			// 			const layout = fs.readFileSync(
-			// 				projectRoot + '/private/layout-manythanks.liquid',
-			// 				'UTF-8'
-			// 			)
-			// 			shopify
-			// 				.request(
-			// 					url.parse(
-			// 						`https://${shop}/admin/themes/${
-			// 							activeTheme.id
-			// 						}/assets.json`
-			// 					),
-			// 					'PUT',
-			// 					null,
-			// 					{
-			// 						asset: {
-			// 							key: 'layout/theme-manythanks.liquid',
-			// 							value: layout
-			// 						}
-			// 					}
-			// 				)
-			// 				.then(() => {
-			// 					console.log(
-			// 						shop,
-			// 						'updated layout/theme-manythanks.liquid'
-			// 					)
-			// 				})
-			// 				.catch(console.log)
-			// 		}
-			// 	})()
-			// }
+			if (result.success) {
+				(async () => {
+					const scriptTags =
+						(await this.getScriptTagsFromAPI(shopify, shop))
+							.script_tags || []
+					const scriptTags2 =
+						(await this.getScriptTagsFromDB(shop)).script_tags || []
+
+					const installedScriptTag = scriptTags.filter(
+						script => script.src === this.scriptTagUrl
+					)[0]
+					console.log(
+						shop,
+						'already installed script tags',
+						installedScriptTag
+					)
+					if (!installedScriptTag) {
+						//Remove old script tags
+						await this.removeOldScriptTags(shopify, shop, [
+							...scriptTags,
+							...scriptTags2
+						])
+						// append new script tag
+						this.addAppScriptTag(shopify, shop)
+					} else {
+						// Update script tag info
+						this.updateScriptTagsToDB(shop, scriptTags)
+					}
+					// put template layout for preview
+					// const themes = await shopify
+					// 	.request(
+					// 		url.parse(
+					// 			'https://' +
+					// 				shop +
+					// 				'/admin/themes.json?role=main'
+					// 		)
+					// 	)
+					// 	.catch(console.log)
+					// const activeTheme =
+					// 	themes && themes.themes && themes.themes[0]
+					// if (activeTheme) {
+					// 	const layout = fs.readFileSync(
+					// 		projectRoot + '/private/layout-manythanks.liquid',
+					// 		'UTF-8'
+					// 	)
+					// 	shopify
+					// 		.request(
+					// 			url.parse(
+					// 				`https://${shop}/admin/themes/${
+					// 					activeTheme.id
+					// 				}/assets.json`
+					// 			),
+					// 			'PUT',
+					// 			null,
+					// 			{
+					// 				asset: {
+					// 					key: 'layout/theme-manythanks.liquid',
+					// 					value: layout
+					// 				}
+					// 			}
+					// 		)
+					// 		.then(() => {
+					// 			console.log(
+					// 				shop,
+					// 				'updated layout/theme-manythanks.liquid'
+					// 			)
+					// 		})
+					// 		.catch(console.log)
+					// }
+				})()
+			}
 		})
 	}
 
