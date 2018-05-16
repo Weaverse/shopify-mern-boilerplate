@@ -41,6 +41,7 @@ export default function renderApp() {
 		<AppContainer>
 			<AppProvider
 				forceRedirect={NODE_ENV !== 'development'}
+				debug={NODE_ENV === 'production'}
 				apiKey={apiKey}
 				shopOrigin={shopOrigin}
 			>

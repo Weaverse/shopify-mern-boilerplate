@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env BABEL_ENV=node NODE_ENV=production node dist/index.js",
-    "dev": "NODE_ENV=development nodemon ./src/index.js --exec babel-node --presets @babel/env --ignore client",
+    "dev": "NODE_ENV=development nodemon ./src/index.js --exec babel-node --presets @babel/env --ignore src/client",
     "build:server": "cross-env BABEL_ENV=node NODE_ENV=production babel src/server -d dist/server --ignore public && cross-env BABEL_ENV=node NODE_ENV=production babel src/index.js -o dist/index.js && cp -r src/server/views/ dist/server/views/",
     "build:client": "cross-env BABEL_ENV=react-production NODE_ENV=production webpack --config ./src/client/webpack.config.js --progress --profile --colors",
     "test": "cross-env BABEL_ENV=node mocha --compilers js:@babel/register --timeout=3000 --exit",
