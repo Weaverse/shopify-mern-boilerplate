@@ -85,7 +85,7 @@ Project Structure
 | Name                                   | Description                                                  |
 | -------------------------------------- | ------------------------------------------------------------ |
 | **src/server**                         | Backend Server app                                           |
-| **clientclient**                       | Client React app                                             |
+| **src/client**                         | Client React app                                             |
 | **assets**                             | Static assets (fonts, css, js, img) / Client build dir       |
 | **dist**                               | Server built app                                             |
 | .dockerignore                          | Folder and files ignored by docker usage.                    |
