@@ -14,10 +14,10 @@
     "lint:fix": "eslint --fix src/**/*.js",
     "build": "yarn clean && yarn build:server && yarn build:client",
     "serve": "yarn build && yarn start",
-    "deploy": "yarn build && NODE_ENV=production pm2 start server.js -i max --name boost-solution -o logs/pm2.log --merge-logs -e logs/pm2-e.log",
-    "restart": "yarn build && NODE_ENV=production pm2 restart server.js -i max --name boost-solution -o logs/pm2.log --merge-logs -e logs/pm2-e.log",
-    "stop": "pm2 stop boost-solution",
-    "delete": "pm2 delete boost-solution",
+    "deploy": "yarn build && NODE_ENV=production pm2 start dist/index.js -i max --name shopify-mern -o logs/pm2.log --merge-logs -e logs/pm2-e.log",
+    "restart": "yarn build && NODE_ENV=production pm2 restart dist/index.js -i max --name shopify-mern -o logs/pm2.log --merge-logs -e logs/pm2-e.log",
+    "stop": "pm2 stop shopify-mern",
+    "delete": "pm2 delete shopify-mern",
     "clean": "rm -rf ./assets && mkdir ./assets && rm -rf ./dist && mkdir ./dist"
   },
   "dependencies": {
