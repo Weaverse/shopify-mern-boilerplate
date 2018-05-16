@@ -29,12 +29,15 @@ Features
     * Shopify Webhook
 * React ^16.3
 * Hot Reload React app
+* Full ES6 support for both Server and Client
+* MongoDB model
 
 
 
 Todos
 ---------------
 * Add GraphQL
+* Add Server side render
 
 Getting Started
 ---------------
@@ -76,17 +79,13 @@ Replace it with `BASE_URL` defined in `.env.example` file.
 
 
 
-Tried of setting up project? Learn [Docker](https://docs.docker.com/) and then you can do whatever you want with `Dockerfile` and `docker-compose.yml`
-
-
-
 Project Structure
 -----------------
 
 | Name                                   | Description                                                  |
 | -------------------------------------- | ------------------------------------------------------------ |
-| **server**                             | Backend Server app                                           |
-| **client**                             | Client React app                                             |
+| **src/server**                         | Backend Server app                                           |
+| **clientclient**                       | Client React app                                             |
 | **assets**                             | Static assets (fonts, css, js, img) / Client build dir       |
 | **dist**                               | Server built app                                             |
 | .dockerignore                          | Folder and files ignored by docker usage.                    |

@@ -6,6 +6,7 @@ import { AppProvider, Page, Card, Button } from '@shopify/polaris'
 import '@shopify/polaris/styles.css'
 
 const { apiKey, shopOrigin } = window.appData
+const { NODE_ENV } = process.env
 
 class App extends Component {
 	static contextTypes = {
@@ -38,14 +39,14 @@ class App extends Component {
 export default function renderApp() {
 	render(
 		<AppContainer>
-			<AppProvider forceRedirect apiKey={apiKey} shopOrigin={shopOrigin}>
+			<AppProvider
+				forceRedirect={NODE_ENV !== 'development'}
+				apiKey={apiKey}
+				shopOrigin={shopOrigin}
+			>
 				<App />
 			</AppProvider>
 		</AppContainer>,
 		document.getElementById('root')
 	)
-
-	if (module.hot) {
-		module.hot.accept()
-	}
 }

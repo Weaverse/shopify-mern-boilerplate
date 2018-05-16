@@ -1,17 +1,10 @@
 const request = require('supertest');
-const app = require('../index.js');
+const app = require('../src/index.js');
 
 describe('GET /', () => {
 	it('should return 302 "Found" (authenticate with Shopify)', done => {
 		request(app)
 			.get('/')
-			.expect(302, done);
-	});
-});
-describe('GET /editor', () => {
-	it('should return 302 "Found" (authenticate with Shopify)', done => {
-		request(app)
-			.get('/editor')
 			.expect(302, done);
 	});
 });

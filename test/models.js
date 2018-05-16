@@ -2,8 +2,8 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 require('sinon-mongoose');
 
-const User = require('../server/models/User');
-const Shopify = require('../server/models/Shopify');
+const User = require('../src/server/models/User');
+const Shopify = require('../src/server/models/Shopify');
 
 describe('User Model', () => {
 	it('should create a new user', done => {

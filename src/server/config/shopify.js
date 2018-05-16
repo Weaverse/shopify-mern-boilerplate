@@ -1,6 +1,5 @@
 const ShopifyModel = require('../models/Shopify')
 const url = require('url')
-import fs from 'fs'
 
 const {
 	SHOPIFY_APP_KEY,
@@ -11,8 +10,7 @@ const {
 
 class ShopifyMongoStrategy {
 	constructor() {
-		this.scriptTagUrl =
-			BASE_URL + '/assets/script-tag.js'
+		this.scriptTagUrl = BASE_URL + '/assets/script-tag.js'
 	}
 
 	getScriptTagsRequestUrl(shop) {
@@ -35,7 +33,7 @@ class ShopifyMongoStrategy {
 			ShopifyModel.findOneAndUpdate(
 				{ shopDomain: shop },
 				{ accessToken },
-				(err, data) => {
+				() => {
 					console.log(shop, 'updated shop')
 				}
 			)
@@ -116,7 +114,7 @@ class ShopifyMongoStrategy {
 					console.log(
 						shop,
 						'already installed script tags',
-						installedScriptTag
+						installedScriptTag && installedScriptTag.src
 					)
 					if (!installedScriptTag) {
 						//Remove old script tags
@@ -130,60 +128,15 @@ class ShopifyMongoStrategy {
 						// Update script tag info
 						this.updateScriptTagsToDB(shop, scriptTags)
 					}
-					// put template layout for preview
-					// const themes = await shopify
-					// 	.request(
-					// 		url.parse(
-					// 			'https://' +
-					// 				shop +
-					// 				'/admin/themes.json?role=main'
-					// 		)
-					// 	)
-					// 	.catch(console.log)
-					// const activeTheme =
-					// 	themes && themes.themes && themes.themes[0]
-					// if (activeTheme) {
-					// 	const layout = fs.readFileSync(
-					// 		projectRoot + '/private/layout-manythanks.liquid',
-					// 		'UTF-8'
-					// 	)
-					// 	shopify
-					// 		.request(
-					// 			url.parse(
-					// 				`https://${shop}/admin/themes/${
-					// 					activeTheme.id
-					// 				}/assets.json`
-					// 			),
-					// 			'PUT',
-					// 			null,
-					// 			{
-					// 				asset: {
-					// 					key: 'layout/theme-manythanks.liquid',
-					// 					value: layout
-					// 				}
-					// 			}
-					// 		)
-					// 		.then(() => {
-					// 			console.log(
-					// 				shop,
-					// 				'updated layout/theme-manythanks.liquid'
-					// 			)
-					// 		})
-					// 		.catch(console.log)
-					// }
 				})()
 			}
 		})
 	}
 
 	updateScriptTagsToDB(shopDomain, scriptTags) {
-		ShopifyModel.findOneAndUpdate(
-			{ shopDomain },
-			{ scriptTags },
-			(err, data) => {
-				console.log(shopDomain, 'updated script tags to DB')
-			}
-		)
+		ShopifyModel.findOneAndUpdate({ shopDomain }, { scriptTags }, () => {
+			console.log(shopDomain, 'updated script tags to DB')
+		})
 	}
 
 	getScriptTagsFromDB(shopDomain) {
@@ -208,7 +161,7 @@ class ShopifyMongoStrategy {
 
 	async removeOldScriptTags(shopify, shopDomain, oldScriptTags) {
 		const promise = oldScriptTags.map(script => {
-			console.log('remove old script tag', script)
+			console.log('remove old script tag', script.src)
 			return shopify.request(
 				url.parse(
 					'https://' +

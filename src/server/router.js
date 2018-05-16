@@ -24,7 +24,7 @@ const validateShop = (req, res, next) => {
 		session: { shop }
 	} = req
 	const queryShop = req.query.shop
-	console.log('session shop::', shop, 'query shop::', queryShop, req.query)
+	console.log('session shop::', shop, 'query shop::', queryShop)
 	if (!queryShop && shop) {
 		const redirect = `${req.url}${
 			req.url.includes('?') ? '&shop=' : '?shop='

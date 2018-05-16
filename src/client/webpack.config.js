@@ -9,7 +9,10 @@ dotenv.load({
 
 const { NODE_ENV, PUBLIC_PATH } = process.env
 const isDevelopment = NODE_ENV !== 'production'
-
+console.log(path.resolve(__dirname, '..' + PUBLIC_PATH))
+const outputPath = isDevelopment
+	? path.resolve(__dirname, '..' + PUBLIC_PATH)
+	: path.resolve(__dirname, '../..' + PUBLIC_PATH)
 const plugins = [
 	...[
 		new webpack.DefinePlugin({
@@ -40,7 +43,7 @@ module.exports = [
 		entry: path.resolve(__dirname, './script_tag/index.js'),
 		output: {
 			filename: 'script-tag.js',
-			path: path.resolve(__dirname, '..' + PUBLIC_PATH)
+			path: outputPath
 		},
 		module: {
 			rules: [
@@ -59,53 +62,64 @@ module.exports = [
 		entry: {
 			main: [
 				...extraEntryFiles,
-				'@shopify/polaris/styles.css',
 				path.resolve(__dirname, './src/index.js')
 			]
 		},
 		output: {
 			filename: '[name].js',
-			path: path.resolve(__dirname, '..' + PUBLIC_PATH)
+			path: outputPath
 		},
 		module: {
 			rules: [
 				{
-					test: /\.jsx?$/,
-					use: 'babel-loader',
-					exclude: /node_modules/
-				},
-
-				{
-					test: /\.css$/,
-					exclude: /node_modules/,
-					use: [
-						'style-loader',
+					oneOf: [
 						{
-							loader: 'css-loader',
-							query: {
-								sourceMap: isDevelopment,
-								modules: true,
-								importLoaders: 1,
-								localIdentName: '[name]-[local]_[hash:base64:5]'
-							}
+							test: /\.jsx?$/,
+							use: 'babel-loader',
+							exclude: /node_modules/
+						},
+
+						{
+							test: /\.css$/,
+							exclude: /node_modules/,
+							use: [
+								'style-loader',
+								{
+									loader: 'css-loader',
+									query: {
+										sourceMap: isDevelopment,
+										modules: true,
+										importLoaders: 1,
+										localIdentName:
+											'[name]-[local]_[hash:base64:5]'
+									}
+								},
+								{
+									loader: 'postcss-loader'
+								}
+							]
 						},
 						{
-							loader: 'postcss-loader'
-						}
-					]
-				},
-				{
-					test: /\.css$/,
-					include: /node_modules/,
-					use: [
-						'style-loader',
+							test: /\.css$/,
+							include: /node_modules/,
+							use: [
+								'style-loader',
+								{
+									loader: 'css-loader',
+									query: {
+										sourceMap: isDevelopment,
+										modules: true,
+										importLoaders: 1,
+										localIdentName: '[local]'
+									}
+								}
+							]
+						},
 						{
-							loader: 'css-loader',
-							query: {
-								sourceMap: isDevelopment,
-								modules: true,
-								importLoaders: 1,
-								localIdentName: '[local]'
+							loader: 'file-loader',
+							exclude: [/\.js$/, /\.json$/],
+							options: {
+								name: 'static/[name].[hash:8].[ext]'
 							}
 						}
 					]

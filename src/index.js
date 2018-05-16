@@ -16,24 +16,26 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const expressValidator = require('express-validator')
 const http = require('http')
-import webpack from 'webpack'
-import config from './client/webpack.config'
-import webpackMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-const { NODE_ENV, PUBLIC_PATH } = process.env
 
 dotenv.load({
-	path: NODE_ENV === 'test' ? '.env.example' : '.env'
+	path: '.env'
 })
+
+const { NODE_ENV, PUBLIC_PATH, BABEL_ENV } = process.env
+
 /**
  * Create Express server.
  */
 const app = express()
 console.log(NODE_ENV)
 if (NODE_ENV === 'development') {
+	const webpack = require('webpack')
+	const config = require('./client/webpack.config')
+	const webpackMiddleware = require('webpack-dev-middleware')
+	const webpackHotMiddleware = require('webpack-hot-middleware')
 	const compiler = webpack(config)
 	const middleware = webpackMiddleware(compiler, {
 		hot: true,
@@ -51,7 +53,8 @@ if (NODE_ENV === 'development') {
 	app.use(middleware)
 	app.use(webpackHotMiddleware(compiler))
 } else {
-	const staticPath = path.resolve(__dirname, '.' + PUBLIC_PATH)
+	const staticPath = path.resolve(__dirname, '..' + PUBLIC_PATH)
+	console.log(PUBLIC_PATH, staticPath)
 	app.use(
 		PUBLIC_PATH,
 		express.static(staticPath, {
@@ -82,7 +85,7 @@ app.set(
 	'port',
 	process.env.HTTPS_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080
 )
-app.set('views', path.join(__dirname, './views'))
+app.set('views', path.join(__dirname, './server/views'))
 app.set('view engine', 'pug')
 app.use(compression())
 app.use(logger('dev'))
@@ -125,9 +128,9 @@ app.use((req, res, next) => {
 
 // Router
 const router =
-	NODE_ENV === 'development'
+	NODE_ENV === 'development' || BABEL_ENV === 'node'
 		? require('./server/router')
-		: require('./dist/router')
+		: require('./router')
 
 app.use(router)
 
